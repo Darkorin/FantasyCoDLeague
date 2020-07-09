@@ -6,7 +6,6 @@ const exphbs = require("express-handlebars");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-
   // Set Handlebars as the default templating engine.
   app.use(express.urlencoded({ extended: false }));
   app.engine("handlebars", exphbs({ defaultLayout: "main" }));

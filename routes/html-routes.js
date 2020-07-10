@@ -7,11 +7,8 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   // Set Handlebars as the default templating engine.
-  app.use(express.urlencoded({ extended: false }));
   app.engine("handlebars", exphbs({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
-  app.use(express.static(path.join(__dirname, "app/public")));
-  app.use(express.json());
 
   app.get("/", (req, res) => {
     // If the user already has an account send them to the members page

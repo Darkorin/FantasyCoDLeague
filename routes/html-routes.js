@@ -1,5 +1,4 @@
 // Requiring path to so we can use relative routes to our HTML files
-const path = require("path");
 const exphbs = require("express-handlebars");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -7,11 +6,8 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   // Set Handlebars as the default templating engine.
-  app.use(express.urlencoded({ extended: false }));
   app.engine("handlebars", exphbs({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
-  app.use(express.static(path.join(__dirname, "app/public")));
-  app.use(express.json());
 
   app.get("/", (req, res) => {
     // If the user already has an account send them to the members page

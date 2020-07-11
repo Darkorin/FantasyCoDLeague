@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars");
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+const db = require("../models");
 
 module.exports = function(app) {
   // Set Handlebars as the default templating engine.
@@ -28,6 +29,12 @@ module.exports = function(app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members", isAuthenticated, (req, res) => {
-    res.render("members");
+    db.Player.findAll().then(data => {
+      data = data.map(element => element.dataValues);
+      res.render("members", data);
+    }).catch(err => {
+      console.log(err);
+      res.status(401).json(err);
+    });
   });
 };

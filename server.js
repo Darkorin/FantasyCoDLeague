@@ -2,6 +2,10 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+const axios = require("axios");
+
+require('dotenv').config();
+
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
 
@@ -27,7 +31,7 @@ require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
-  var players = ["Word#5968877",
+  const players = ["Word#5968877",
     "Appa#2546284",
     "Aristo#3502113",
     "Asylate#2110730",
@@ -40,7 +44,7 @@ db.sequelize.sync().then(() => {
     "Hschreddz401#3720690",
     "huntfalcons#7806932",
     "iZsimply-#5025015",
-    "Jamflowman03#*8529024",
+    "Jamflowman03#8529024",
     "Jyrell#3712230",
     "LordChuy0_0#6456354",
     "Masta Splinter#7138518",
@@ -57,10 +61,43 @@ db.sequelize.sync().then(() => {
     "Tune#3334777",
     "Vision#2601760",
     "Woolley Mammoth#7681032"
-    ]
-    db.Player.bulkCreate(players.map(player => ({ activisionID: player })))
-        .then(() => console.log("Added"))
-        .catch(err => console.error(err));
+  ]
+
+  let playerNum = 0;
+  const seedInt = setInterval(() => {
+    const currPlayer = playerNum;
+    playerNum++;
+    if (currPlayer === players.length) {
+      clearInterval(seedInt)
+      return;
+    };
+    axios({
+      "method": "GET",
+      "url": `https://call-of-duty-modern-warfare.p.rapidapi.com/multiplayer/${encodeURIComponent(players[currPlayer])}/uno`,
+      "headers": {
+        "content-type": "application/octet-stream",
+        "x-rapidapi-host": "call-of-duty-modern-warfare.p.rapidapi.com",
+        "x-rapidapi-key": process.env.COD_API_KEY,
+        "useQueryString": true
+      }
+    })
+      .then((response) => {        
+        db.Player.create({
+          activisionID: players[currPlayer],
+          kdRatio: response.data.lifetime.all.properties.kdRatio,
+          wlRatio: response.data.lifetime.all.properties.winLossRatio,
+          scoreMinute: response.data.lifetime.all.properties.scorePerMinute,
+          scoreGame: response.data.lifetime.all.properties.scorePerGame,
+          totalKills: response.data.lifetime.all.properties.kills,
+          mostKills: response.data.lifetime.all.properties.bestKills
+        }).then(() => console.log("Added"))
+          .catch(err => console.error(err));
+      })
+      .catch((error) => {
+        console.log(error)
+        clearInterval(seedInt)
+      })
+  }, 5000);
 
   app.listen(PORT, () => {
     console.log(

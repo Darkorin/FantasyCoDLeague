@@ -3,12 +3,32 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false
-    }
-    // Add the rest of the stats you pick to display below.
-    // Syntax is statName: {
-    //                    type: DataTypes.STRING or DataTypes.Decimal,
-    //                    allowNull: true
-    //           },
+    },
+ kdRatio: {
+    type: DataTypes.Decimal,
+    allowNull: true
+ },
+ wlRatio: {
+  type: DataTypes.Decimal,
+  allowNull: true
+},
+scoreMinute: {
+  type: DataTypes.Decimal,
+  allowNull: true
+},
+scoreGame: {
+  type: DataTypes.Decimal,
+  allowNull: true
+},
+totalKills: {
+  type: DataTypes.Decimal,
+  allowNull: true
+},
+mostKills: {
+  type: DataTypes.Decimal,
+  allowNull: true
+},
+
   });
   return Player;
 };

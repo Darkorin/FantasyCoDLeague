@@ -36,4 +36,27 @@ $(document).ready(() => {
         console.log(err);
       });
   }
+
+  // CoD API TEST
+  $.get("/api/players").then(players => {
+    players.forEach(player => {
+      const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": `https://call-of-duty-modern-warfare.p.rapidapi.com/multiplayer/${player.activisionID}/battle`,
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "call-of-duty-modern-warfare.p.rapidapi.com",
+          "x-rapidapi-key": "542eb207a6msh608940e9801d301p1af396jsnbf710534c9ff"
+        }
+      }
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+    });
+  }).catch(err => {
+    console.log(err);
+  })
+
 });

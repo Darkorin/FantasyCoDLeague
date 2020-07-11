@@ -50,4 +50,14 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.get("/api/players", (req, res) => {
+    console.log("route hit.");
+    db.Player.findAll().then(data=> {
+      console.log(data);
+      res.json(data);
+    }).catch(err => {
+      console.log(err);
+    })
+  })
 };

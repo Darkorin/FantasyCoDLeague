@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     mostKills: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+    }
   });
   return Player;
 };

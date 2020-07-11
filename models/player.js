@@ -5,30 +5,29 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     kdRatio: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     wlRatio: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     scoreMinute: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     scoreGame: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     totalKills: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     mostKills: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
-
   });
   return Player;
 };

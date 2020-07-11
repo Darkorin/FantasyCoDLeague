@@ -27,6 +27,41 @@ require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
+  var players = ["Word#5968877",
+    "Appa#2546284",
+    "Aristo#3502113",
+    "Asylate#2110730",
+    "Athens#2718532",
+    "Colors#3684810",
+    "coolman#6872635",
+    "DirtyStyxx#2654357",
+    "Flick#1732420",
+    "Goku#8692749",
+    "Hschreddz401#3720690",
+    "huntfalcons#7806932",
+    "iZsimply-#5025015",
+    "Jamflowman03#*8529024",
+    "Jyrell#3712230",
+    "LordChuy0_0#6456354",
+    "Masta Splinter#7138518",
+    "Mil#7326489",
+    "Nick#8253622",
+    "Not_Sickness#9491992",
+    "OVOFinesse6ix#6657015",
+    "Oxyclean#6587377",
+    "Pickle Rick#8063705",
+    "Qztp#9238347",
+    "Student Athlete#9814800",
+    "Tank#1793909",
+    "TheMilkMan#7521651",
+    "Tune#3334777",
+    "Vision#2601760",
+    "Woolley Mammoth#7681032"
+    ]
+    db.Player.bulkCreate(players.map(player => ({ activisionID: player })))
+        .then(() => console.log("Added"))
+        .catch(err => console.error(err));
+
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",

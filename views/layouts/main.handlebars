@@ -15,27 +15,3 @@
 </body>
 
 </html>
-<style media="screen">
-  li {
-    background-color: blue;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 50%;
-    font-family: sans-serif;
-    text-align: center;
-  }
-</style>
-
-<ul>
-  {{#each user }}
-  <li>{{squads}}</li>
-  {{/each}}
-</ul>
-
-<ul>
-  {{#each player}}
-  {{#if available}}
-  {{ player is added to team=true}}
-  {{/if}}
-  {{/each}}
-</ul>

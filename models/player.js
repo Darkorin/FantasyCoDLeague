@@ -4,6 +4,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    displayName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     kdRatio: {
       type: DataTypes.DECIMAL(3,2),
       allowNull: false

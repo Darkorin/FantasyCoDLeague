@@ -86,6 +86,7 @@ db.sequelize.sync().then(() => {
   //     .then(response => {
   //       db.Player.create({
   //         activisionId: players[currPlayer],
+  //         displayName: players[currPlayer].split("#")[0],
   //         kdRatio: response.data.lifetime.all.properties.kdRatio,
   //         wlRatio: response.data.lifetime.all.properties.winLossRatio,
   //         scoreMinute: response.data.lifetime.all.properties.scorePerMinute,

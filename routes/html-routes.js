@@ -31,7 +31,8 @@ module.exports = function(app) {
   app.get("/members", isAuthenticated, (req, res) => {
     db.Player.findAll().then(data => {
       data = data.map(element => element.dataValues);
-      res.render("members", data);
+      console.log(data);
+      res.render("members", {players: data, users: ["1 (You)", "2 (CPU)", "3 (CPU)", "4 (CPU)", "5 (CPU)", "6 (CPU)", "7 (CPU)", "8 (CPU)"]});
     }).catch(err => {
       console.log(err);
       res.status(401).json(err);

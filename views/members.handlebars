@@ -1,6 +1,5 @@
 <style media="screen">
   li {
-    background-color: blue;
     margin-bottom: 10px;
     padding: 10px;
     width: 50%;
@@ -8,21 +7,50 @@
     text-align: center;
   }
 </style>
+<div class="row">
+  <div class="col-6">
+    <h1>Squads: </h1>
+    {{#each users}}
+    <h4>Player {{this}}</h4>
+    <div class="card-group">
+      <div class="card">
+        <div class="card-text">
+          Player Name
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-text">
+          Player Name 2
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-text">
+          Player Name 3
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 
-<ul>
-  {{#each user }}
-  <li>{{squads}}</li>
-  {{/each}}
-</ul>
+  <div class="col-6">
+    <h1>Available Players: </h1> 
+    {{#each players}}
+    <div class="card-group">
+      <div class="card border-dark mb-3">
+        <li class="list-group-item w-100">Display Name: {{displayName}}</li>
+        <li class="list-group-item w-100">Win/Loss Ratio: {{wlRatio}}</li>
+        <li class="list-group-item w-100">Kill/Death Ratio: {{kdRatio}}</li>
 
-<ul>
-  {{#each player}}
-  {{#if available}}
-  {{ player is added to team=true}}
-  {{/if}}
-  {{/each}}
-</ul>
+      </div>
+      <div class="card border-dark mb-3">
+        <li class="list-group-item w-100">Avg Score: {{scoreGame}}</li>
+        <li class="list-group-item w-100">Lifetime Kills: {{totalKills}}</li>
+        <li class="list-group-item w-100">Largest Kill Count: {{mostKills}}</li>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/members.js"></script>
-  <script src="/path/to/handlebars.min.js"></script>
+
+<script type="text/javascript" src="js/members.js"></script>

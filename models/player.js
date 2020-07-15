@@ -1,33 +1,39 @@
 module.exports = function(sequelize, DataTypes) {
   const Player = sequelize.define("Player", {
-    activisionID: {
+    activisionId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    displayName: {
       type: DataTypes.STRING,
       allowNull: false
     },
     kdRatio: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL(3,2),
       allowNull: false
     },
     wlRatio: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL(3,2),
       allowNull: false
     },
     scoreMinute: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL(6,2),
       allowNull: false
     },
     scoreGame: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL(7,2),
       allowNull: false
     },
     totalKills: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     mostKills: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
+  }, {
+    underscored: true
   });
   return Player;
 };

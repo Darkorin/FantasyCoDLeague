@@ -1,7 +1,6 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
-const { Op } = require("sequelize");
 
 module.exports = function(app) {
   app.post("/api/draft", (req, res) => {
@@ -9,42 +8,50 @@ module.exports = function(app) {
       where: {
         userId: req.body.userId
       }
-    }).then(result => {
-      let draftArr = result.dataValues;
-      const index = Object.values(draftArr).indexOf(req.body.currentTurn);
-      const turnArr = [
-        "1 (YOU)",
-        "2 (CPU)",
-        "3 (CPU)",
-        "4 (CPU)",
-        "5 (CPU)",
-        "6 (CPU)",
-        "7 (CPU)",
-        "8 (CPU)"
-      ];
-      let turnInd = turnArr.indexOf(req.body.currentTurn) + 1;
-      if (turnInd > 7) turnInd = 0;
-      draftArr["currentTurn"] = turnArr[turnInd];
-      for(let i = index + 1; i < index + 4; i++) {
-        if (Object.values(draftArr)[i] === null) {
-          draftArr[`${Object.keys(draftArr)[i]}`] = req.body.playerName;
-          i = index + 5;
-          db.Draft.update(draftArr ,{
-            where: {
-              userId: req.body.userId
-            }
-          }).then(() => {
-            res.end();
-          }).catch(err => {
-            console.log(err);
-          });
-        } else {
-          if (i === index + 3) res.end();
+    })
+      .then(result => {
+        const draftArr = result.dataValues;
+        const index = Object.values(draftArr).indexOf(req.body.currentTurn);
+        const turnArr = [
+          "1 (YOU)",
+          "2 (CPU)",
+          "3 (CPU)",
+          "4 (CPU)",
+          "5 (CPU)",
+          "6 (CPU)",
+          "7 (CPU)",
+          "8 (CPU)"
+        ];
+        let turnInd = turnArr.indexOf(req.body.currentTurn) + 1;
+        if (turnInd > 7) {
+          turnInd = 0;
         }
-      };
-    }).catch(err => {
-      console.log(err);
-    });
+        draftArr.currentTurn = turnArr[turnInd];
+        for (let i = index + 1; i < index + 4; i++) {
+          if (Object.values(draftArr)[i] === null) {
+            draftArr[`${Object.keys(draftArr)[i]}`] = req.body.playerName;
+            i = index + 5;
+            db.Draft.update(draftArr, {
+              where: {
+                userId: req.body.userId
+              }
+            })
+              .then(() => {
+                res.end();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            if (i === index + 3) {
+              res.end();
+            }
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
 
   // Using the passport.authenticate middleware with our local strategy.

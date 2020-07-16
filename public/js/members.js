@@ -1,9 +1,9 @@
 $(document).ready(() => {
   const getUserId = () => {
     let url = window.location.href;
-    url = url.split('/');
+    url = url.split("/");
     return url[url.length - 1];
-  }
+  };
 
   const userId = getUserId();
 
@@ -13,17 +13,23 @@ $(document).ready(() => {
     $(".member-name").text(data.email);
   });
 
-  $(".draftBtn").click(function () {
-    let playerName = $(this).attr("id");
-    let currentTurn = $("#currentTurn").text();
-    $.post("/api/draft", { userId: userId, playerName: playerName, currentTurn: currentTurn }).then(() => {
-      location.reload();
-    }).catch(err => {
-      console.log(err);
-    });
+  $(".draftBtn").click(function() {
+    const playerName = $(this).attr("id");
+    const currentTurn = $("#currentTurn").text();
+    $.post("/api/draft", {
+      userId: userId,
+      playerName: playerName,
+      currentTurn: currentTurn
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
-  setTimeout(function() {
-    if ($("#currentTurn").text() != "1 (YOU)") {
+  setTimeout(() => {
+    if ($("#currentTurn").text() !== "1 (YOU)") {
       // Click a random draft button
       const btnList = $(".draftBtn");
       const randNum = Math.floor(Math.random() * btnList.length);

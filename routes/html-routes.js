@@ -72,7 +72,8 @@ module.exports = function(app) {
           res.render("members", {
             players: data,
             users: draftArr,
-            currentTurn: draft[draft.length - 3]
+            currentTurn: draft[draft.length - 3],
+            totalPlayers: data.length
           });
         })
         .catch(err => {

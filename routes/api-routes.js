@@ -1,8 +1,39 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const { Op } = require("sequelize");
 
 module.exports = function(app) {
+  app.post("/api/draft", (req, res) => {
+    db.Draft.findOne({
+      where: {
+        userId: req.body.userId
+      }
+    }).then(result => {
+      let draftArr = result.dataValues;
+      const index = Object.values(draftArr).indexOf(req.body.currentTurn);
+      for(let i = index + 1; i < index + 4; i++) {
+        if (Object.values(draftArr)[i] === null) {
+          draftArr[`${Object.keys(draftArr)[i]}`] = req.body.playerName;
+          i = index + 5;
+          db.Draft.update(draftArr ,{
+            where: {
+              userId: req.body.userId
+            }
+          }).then(() => {
+            res.end();
+          }).catch(err => {
+            console.log(err);
+          });
+        } else {
+          if (i === index + 3) res.end();
+        }
+      };
+    }).catch(err => {
+      console.log(err);
+    });
+  });
+
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -52,7 +83,6 @@ module.exports = function(app) {
   });
 
   app.get("/api/players", (req, res) => {
-    console.log("route hit.");
     db.Player.findAll()
       .then(data => {
         console.log(data);

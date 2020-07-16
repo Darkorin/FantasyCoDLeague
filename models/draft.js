@@ -131,6 +131,10 @@ module.exports = function(sequelize, DataTypes) {
     p8d3: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    currentTurn: {
+      type: DataTypes.STRING,
+      allowedNull: false
     }
   }, {
     underscored: true

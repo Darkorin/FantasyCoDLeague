@@ -25,6 +25,10 @@ module.exports = function (app) {
     return available;
   });
 
+  Handlebars.registerHelper("checkTurn", function(currentTurn) {
+    return (currentTurn === "1 (YOU)");
+  });
+
   app.get("/", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
@@ -47,24 +51,25 @@ module.exports = function (app) {
     const render = draft => {
       const checkNullDraft = drafted => {
         if (drafted === null) {
-          return "Empty"
+          return "Empty";
         } else {
           return drafted;
         }
       }
+
       draftArr = [];
-      for (let i = 2; i < Object.keys(draft).length - 2; i = i +4) {
+      for (let i = 2; i < Object.keys(draft).length - 3; i = i +4) {
         draftArr.push({
           name: draft[i],
           d1: checkNullDraft(draft[i + 1]),
           d2: checkNullDraft(draft[i + 2]),
-          d3: checkNullDraft(draft[i + 3]),
+          d3: checkNullDraft(draft[i + 3])
         })
       };
 
       db.Player.findAll().then(data => {
         data = data.map(element => element.dataValues);
-        res.render("members", { players: data, users: draftArr });
+        res.render("members", { players: data, users: draftArr, currentTurn: draft[draft.length-3] });
       }).catch(err => {
         console.log(err);
         res.status(401).json(err);
@@ -88,6 +93,7 @@ module.exports = function (app) {
             p6Display: "6 (CPU)",
             p7Display: "7 (CPU)",
             p8Display: "8 (CPU)",
+            currentTurn: "1 (YOU)"
           }).then(() => {
             findDraft();
           })

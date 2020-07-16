@@ -12,6 +12,19 @@ module.exports = function(app) {
     }).then(result => {
       let draftArr = result.dataValues;
       const index = Object.values(draftArr).indexOf(req.body.currentTurn);
+      const turnArr = [
+        "1 (YOU)",
+        "2 (CPU)",
+        "3 (CPU)",
+        "4 (CPU)",
+        "5 (CPU)",
+        "6 (CPU)",
+        "7 (CPU)",
+        "8 (CPU)"
+      ];
+      let turnInd = turnArr.indexOf(req.body.currentTurn) + 1;
+      if (turnInd > 7) turnInd = 0;
+      draftArr["currentTurn"] = turnArr[turnInd];
       for(let i = index + 1; i < index + 4; i++) {
         if (Object.values(draftArr)[i] === null) {
           draftArr[`${Object.keys(draftArr)[i]}`] = req.body.playerName;

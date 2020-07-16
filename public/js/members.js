@@ -22,4 +22,12 @@ $(document).ready(() => {
       console.log(err);
     });
   });
+  setTimeout(function() {
+    if ($("#currentTurn").text() != "1 (YOU)") {
+      // Click a random draft button
+      const btnList = $(".draftBtn");
+      const randNum = Math.floor(Math.random() * btnList.length);
+      btnList[randNum].click();
+    }
+  }, 3000);
 });

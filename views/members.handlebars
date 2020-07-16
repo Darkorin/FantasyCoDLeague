@@ -8,49 +8,62 @@
   }
 </style>
 <div class="row">
-  <div class="col-6">
+  <div class="col-1"></div>
+  <div class="col-4">
     <h1>Squads: </h1>
     {{#each users}}
-    <h4>Player {{this}}</h4>
+    <h4>Player {{name}}</h4>
     <div class="card-group">
       <div class="card">
         <div class="card-text">
-          Player Name
+          {{d1}}
         </div>
       </div>
       <div class="card">
         <div class="card-text">
-          Player Name 2
+          {{d2}}
         </div>
       </div>
       <div class="card">
         <div class="card-text">
-          Player Name 3
+          {{d3}}
         </div>
       </div>
     </div>
     {{/each}}
   </div>
-
-  <div class="col-6">
+  <div class="col-2">
+    <h4>Current Turn: <span id="currentTurn">{{currentTurn}}</span></h4>
+  </div>
+  <div class="col-4">
     <h1>Available Players: </h1> 
+    <div style="height:500px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
     {{#each players}}
+    {{#if (checkDrafted displayName ../users)}}
+    {{#if (checkTurn ../currentTurn)}}
+    <button id={{displayName}} type="button" class="draftBtn btn btn-dark">Draft {{displayName}}</button>
+    {{/if}}
+    {{#unless (checkTurn ../currentTurn)}}
+    <button id={{displayName}} type="button" class="draftBtn btn btn-dark" style="visibility: hidden;">Draft {{displayName}}</button>
+    {{/unless}}
     <div class="card-group">
-      <div class="card border-dark mb-3">
+      <div class="card mb-3">
         <li class="list-group-item w-100">Display Name: {{displayName}}</li>
         <li class="list-group-item w-100">Win/Loss Ratio: {{wlRatio}}</li>
         <li class="list-group-item w-100">Kill/Death Ratio: {{kdRatio}}</li>
 
       </div>
-      <div class="card border-dark mb-3">
+      <div class="card mb-3">
         <li class="list-group-item w-100">Avg Score: {{scoreGame}}</li>
         <li class="list-group-item w-100">Lifetime Kills: {{totalKills}}</li>
         <li class="list-group-item w-100">Largest Kill Count: {{mostKills}}</li>
       </div>
     </div>
+    {{/if}}
     {{/each}}
+    </div>
   </div>
 </div>
 
 
-<script type="text/javascript" src="js/members.js"></script>
+<script type="text/javascript" src="../js/members.js"></script>

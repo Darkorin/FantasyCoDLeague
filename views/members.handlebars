@@ -41,10 +41,10 @@
     {{#each players}}
     {{#if (checkDrafted displayName ../users)}}
     {{#if (checkTurn ../currentTurn)}}
-    <button id={{displayName}} type="button" class="draftBtn btn btn-dark">Draft {{displayName}}</button>
+    <button id="{{displayName}}" type="button" class="draftBtn btn btn-dark">Draft {{displayName}}</button>
     {{/if}}
     {{#unless (checkTurn ../currentTurn)}}
-    <button id={{displayName}} type="button" class="draftBtn btn btn-dark" style="visibility: hidden;">Draft {{displayName}}</button>
+    <button id="{{displayName}}" type="button" class="draftBtn btn btn-dark" style="visibility: hidden;">Draft {{displayName}}</button>
     {{/unless}}
     <div class="card-group">
       <div class="card mb-3">

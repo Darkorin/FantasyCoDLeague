@@ -28,6 +28,18 @@ $(document).ready(() => {
         console.log(err);
       });
   });
+
+  const checkDraftState = () => {
+    const remainingPlayerCount = $(".draftBtn").length;
+    const totalPlayerCount = $("#totalPlayers").text();
+    $("#currentPlayers").text(remainingPlayerCount);
+    if (remainingPlayerCount === totalPlayerCount - 24) {
+       alert("DONE");
+    }
+  }
+
+  checkDraftState();
+
   setTimeout(() => {
     if ($("#currentTurn").text() !== "1 (YOU)") {
       // Click a random draft button

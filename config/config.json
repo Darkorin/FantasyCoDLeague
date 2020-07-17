@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "happyBre3",
+    "password": "root",
     "database": "CODDB",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "happyBre3",
+    "password": "root",
     "database": "CODDB",
     "host": "127.0.0.1",
     "dialect": "mysql"

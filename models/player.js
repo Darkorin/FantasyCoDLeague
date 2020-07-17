@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
       mostKills: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      accuracy: {
+        type: DataTypes.DECIMAL(5, 2),
+        allowNull: false
       }
     },
     {

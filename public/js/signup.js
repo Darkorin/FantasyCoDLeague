@@ -28,8 +28,8 @@ $(document).ready(() => {
       email: email,
       password: password
     })
-      .then(() => {
-        window.location.replace("/members");
+      .then(res => {
+        window.location.replace(`/members/${res.id}`);
         // If there's an error, handle it by throwing up a bootstrap alert
       })
       .catch(handleLoginErr);

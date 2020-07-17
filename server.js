@@ -2,6 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+const axios = require("axios");
 
 require("dotenv").config();
 
@@ -91,7 +92,8 @@ db.sequelize.sync().then(() => {
   //         scoreMinute: response.data.lifetime.all.properties.scorePerMinute,
   //         scoreGame: response.data.lifetime.all.properties.scorePerGame,
   //         totalKills: response.data.lifetime.all.properties.kills,
-  //         mostKills: response.data.lifetime.all.properties.bestKills
+  //         mostKills: response.data.lifetime.all.properties.bestKills,
+  //         accuracy: response.data.lifetime.all.properties.accuracy * 100
   //       })
   //         .then(() => console.log("Added"))
   //         .catch(err => console.error(err));

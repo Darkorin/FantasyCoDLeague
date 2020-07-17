@@ -8,8 +8,8 @@
   }
 </style>
 <div class="row">
-  <div class="col-1"></div>
-  <div class="col-4">
+  <div class="col-2"></div>
+  <div class="col-3">
     <h1>Squads: </h1>
     {{#each users}}
     <h4>Player {{name}}</h4>
@@ -35,7 +35,7 @@
   <div class="col-2">
     <h4>Current Turn: <span id="currentTurn">{{currentTurn}}</span></h4>
   </div>
-  <div class="col-4">
+  <div class="col-3">
     <h1>Available Players: <span id="currentPlayers">0</span>/<span id="totalPlayers">{{totalPlayers}}</span></h1> 
     <div style="height:500px;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
     {{#each players}}
@@ -48,10 +48,9 @@
     {{/unless}}
     <div class="card-group">
       <div class="card mb-3">
-        <li class="list-group-item w-100">Display Name: {{displayName}}</li>
         <li class="list-group-item w-100">Win/Loss Ratio: {{wlRatio}}</li>
         <li class="list-group-item w-100">Kill/Death Ratio: {{kdRatio}}</li>
-
+        <li class="list-group-item w-100">Accuracy: {{accuracy}}</li>
       </div>
       <div class="card mb-3">
         <li class="list-group-item w-100">Avg Score: {{scoreGame}}</li>

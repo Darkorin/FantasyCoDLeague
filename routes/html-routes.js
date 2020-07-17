@@ -6,7 +6,7 @@ const Handlebars = require("handlebars");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Set Handlebars as the default templating engine.
   app.engine("handlebars", exphbs({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");

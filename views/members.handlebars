@@ -52,8 +52,14 @@
         <li class="list-group-item w-100">Kill/Death Ratio: {{kdRatio}}</li>
         <li class="list-group-item w-100">Accuracy: {{accuracy}}</li>
       </div>
-      {{/if}}
-      {{/each}}
+      <div class="card mb-3">
+        <li class="list-group-item w-100">Avg Score: {{scoreGame}}</li>
+        <li class="list-group-item w-100">Lifetime Kills: {{totalKills}}</li>
+        <li class="list-group-item w-100">Largest Kill Count: {{mostKills}}</li>
+      </div>
+    </div>
+    {{/if}}
+    {{/each}}
     </div>
   </div>
 </div>

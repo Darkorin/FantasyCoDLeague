@@ -25,6 +25,18 @@ module.exports = function(app) {
     return available;
   });
 
+  Handlebars.registerHelper("checkDraftedSpecific", (displayName, user) => {
+    let available = true;
+    if (user.d1 === displayName) {
+      available = false;
+    } else if (user.d2 === displayName) {
+      available = false;
+    } else if (user.d3 === displayName) {
+      available = false;
+    }
+    return available;
+  });
+
   Handlebars.registerHelper("checkTurn", currentTurn => {
     return currentTurn === "1 (YOU)";
   });
@@ -45,6 +57,54 @@ module.exports = function(app) {
     res.render("login");
   });
 
+  app.get("/tournament/:id", isAuthenticated, (req, res) => {
+    db.Draft.findOne({
+      where: {
+        userId: req.user.id
+      }
+    })
+      .then(draft => {
+        draft = Object.values(draft.dataValues);
+        let draftArr = [];
+        for (let i = 2; i < Object.keys(draft).length - 3; i = i + 4) {
+          draftArr.push({
+            name: draft[i],
+            d1: draft[i + 1],
+            d2: draft[i + 2],
+            d3: draft[i + 3]
+          });
+        }
+
+        const shuffleArray = array => {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i);
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+          }
+          return array;
+        };
+
+        draftArr = shuffleArray(draftArr);
+
+        db.Players.findAll()
+          .then(players => {
+            players = players.map(player => player.dataValues);
+            res.render("tournament", {
+              players: players,
+              users: draftArr
+            });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(401).json(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(401).json(err);
+      });
+  });
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members/:id", isAuthenticated, (req, res) => {
@@ -67,13 +127,13 @@ module.exports = function(app) {
       }
 
       db.Player.findAll()
-        .then(data => {
-          data = data.map(element => element.dataValues);
+        .then(players => {
+          players = players.map(player => player.dataValues);
           res.render("members", {
-            players: data,
+            players: players,
             users: draftArr,
             currentTurn: draft[draft.length - 3],
-            totalPlayers: data.length
+            totalPlayers: players.length
           });
         })
         .catch(err => {

@@ -34,9 +34,10 @@ $(document).ready(() => {
     const totalPlayerCount = $("#totalPlayers").text();
     $("#currentPlayers").text(remainingPlayerCount);
     if (remainingPlayerCount === totalPlayerCount - 24) {
-       alert("DONE");
+      //Code to execute once drafting is done
+      window.location.replace(`/tournament/${userId}`);
     }
-  }
+  };
 
   checkDraftState();
 

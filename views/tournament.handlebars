@@ -1,0 +1,7 @@
+{{#each users}}
+<h4>Player {{name}}</h4>
+{{#each ../players}}
+{{#if (checkDraftedSpecific displayName ../this)}}
+<p>{{displayName}}</p>
+{{/each}}
+{{/each}}

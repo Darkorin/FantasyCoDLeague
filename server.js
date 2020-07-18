@@ -83,6 +83,7 @@ db.sequelize.sync().then(() => {
       }
     })
       .then(response => {
+        console.log("COD API RESPONSE: ", response);
         db.Player.create({
           activisionId: players[currPlayer],
           displayName: players[currPlayer].split("#")[0],

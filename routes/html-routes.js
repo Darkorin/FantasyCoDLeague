@@ -35,7 +35,7 @@ module.exports = function(app) {
       available = false;
     }
     return available;
-  })
+  });
 
   Handlebars.registerHelper("checkTurn", currentTurn => {
     return currentTurn === "1 (YOU)";
@@ -77,11 +77,11 @@ module.exports = function(app) {
 
         const shuffleArray = array => {
           for (let i = array.length - 1; i > 0; i--) {
-              const j = Math.floor(Math.random() * i);
-              const temp = array[i];
-              array[i] = array[j];
-              array[j] = temp;
-          };
+            const j = Math.floor(Math.random() * i);
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+          }
           return array;
         };
 
@@ -95,12 +95,12 @@ module.exports = function(app) {
               users: draftArr
             });
           })
-            .catch(err => {
-              console.log(err);
-              res.status(401).json(err);
-            })
+          .catch(err => {
+            console.log(err);
+            res.status(401).json(err);
+          });
       })
-        .catch(err => {
+      .catch(err => {
         console.log(err);
         res.status(401).json(err);
       });

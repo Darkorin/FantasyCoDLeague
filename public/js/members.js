@@ -37,7 +37,7 @@ $(document).ready(() => {
       //Code to execute once drafting is done
       window.location.replace(`/tournament/${userId}`);
     }
-  }
+  };
 
   checkDraftState();
 
